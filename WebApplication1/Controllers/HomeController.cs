@@ -10,19 +10,25 @@ namespace WebApplication1.Controllers
 
         private readonly KcgContext _kcgContext; //先在全域宣告資料庫物件
 
-        public HomeController(KcgContext kcgContext) //這邊是依賴注入使用我們剛設定好的資料庫物件的寫法
+        /*public HomeController(KcgContext kcgContext) //這邊是依賴注入使用我們剛設定好的資料庫物件的寫法
         {
             _kcgContext = kcgContext;
-        }
-
-        /*public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
         }*/
 
-        public string Index()   //先隨意在一個頁面回傳TOPMeni的資料
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
+        /*public string Index()   //先隨意在一個頁面回傳TOPMeni的資料
         {
             return _kcgContext.TOPMenu.FirstOrDefault().Name;
+            return View()
+        }*/
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         public IActionResult Privacy()
