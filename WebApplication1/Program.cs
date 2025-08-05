@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Add Database物件 ID，到設定檔取資料
+builder.Services.AddDbContext<KcgContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("KcgDatabase")));
 
 var app = builder.Build();
 
