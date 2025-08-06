@@ -2,10 +2,27 @@
 	string title = "在@{}中可以寫C#語法";
 	int number = 5;
 	//要將C#的變數顯示在網頁上很簡單，就=>@變數名稱
+	string 小老鼠 = "@";
 }
 
+@title : @number
+
+@if (number > 0)
+{
+	//在這邊還是寫程式碼區塊
+	<div>如果今天要在這裡面顯示文字到網頁上，就寫在html標籤裡面即可</div>
+	<text>如果怕破壞格式不想用html標籤，可以用text，則不會留下痕跡</text>
+}
+else
+{
+	<div>數字沒有大於5，這邊不會顯示</div>
+}
+
+<div>@@</div>
+<div>@(小老鼠)我用括號標起C#的變數，不想在餐廳看到小老鼠</div>
 
 
+<br />
 <a href="~/pay/ATM">使用ATM完成付款</a>
 <br />
 <a href="~/pay/LinePay">使用Line Pay完成付款。</a>
