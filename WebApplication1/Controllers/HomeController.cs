@@ -28,6 +28,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
+            TempData.Keep("title"); //保留TempData的資料，這樣在下一個請求中仍然可以使用它
+
             return View();
         }
 
