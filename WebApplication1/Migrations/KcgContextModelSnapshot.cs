@@ -46,7 +46,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("TOPMenuId");
 
-                    b.ToTable("TOPMenu");
+                    b.ToTable("TOPMenu", (string)null);
                 });
 #pragma warning restore 612, 618
         }

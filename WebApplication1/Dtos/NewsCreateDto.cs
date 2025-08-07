@@ -7,9 +7,9 @@
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
 
-        public DateTime UpdateDateTime { get; set; }
+        //public DateTime UpdateDateTime { get; set; }
 
-        public DateTime InsertDateTime { get; set; }
+        //public DateTime InsertDateTime { get; set; }
 
     }
 }

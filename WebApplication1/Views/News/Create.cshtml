@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.News
+﻿@model NewsCreateDto
 <!--WebApplication1.Models.News  NewsCreateDto-->
 @{
     ViewData["Title"] = "Create";
@@ -22,6 +22,7 @@
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="StartDateTime" class="control-label"></label>
                 <input asp-for="StartDateTime" class="form-control" />
@@ -32,6 +33,7 @@
                 <input asp-for="EndDateTime" class="form-control" />
                 <span asp-validation-for="EndDateTime" class="text-danger"></span>
             </div>
+            <!--
             <div class="form-group">
                 <label asp-for="UpdateDateTime" class="control-label"></label>
                 <input asp-for="UpdateDateTime" class="form-control" />
@@ -41,7 +43,7 @@
                 <label asp-for="InsertDateTime" class="control-label"></label>
                 <input asp-for="InsertDateTime" class="form-control" />
                 <span asp-validation-for="InsertDateTime" class="text-danger"></span>
-            </div>
+            </div>-->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
