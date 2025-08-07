@@ -25,13 +25,13 @@ namespace WebApplication1.Controllers
             var result = from a in _context.News
                          select new NewsDto
                          {
-                             Click = a.Click,
-                             Enable = a.Enable,
-                             EndDateTime = a.EndDateTime,
                              NewsId = a.NewsId,
-                             StartDateTime = a.StartDateTime,
                              Title = a.Title,
-                             UpdateDateTime = a.UpdateDateTime
+                             StartDateTime = a.StartDateTime,
+                             EndDateTime = a.EndDateTime,
+                             Click = a.Click,
+                             UpdateDateTime = a.UpdateDateTime,
+                             Enable = a.Enable                             
                          };
 
             return View(await result.ToListAsync());
@@ -55,24 +55,39 @@ namespace WebApplication1.Controllers
             return View(news);
         }
 
-        // GET: News/Create
+        // GET: News/Create 
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: News/Create
+        // POST: News/Create  沒放[HttpPost]的話，就預設走 GET 方法
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NewsId,Title,Content,StartDateTime,EndDateTime,Click,UpdateDateTime,UpdateEmploeeId,InsertDateTime,InsertEmploeeId,Enable")] News news)
+        public async Task<IActionResult> Create(NewsCreateDto news)
         {
             if (ModelState.IsValid)
             {
-                news.NewsId = Guid.NewGuid();
-                _context.Add(news);
-                await _context.SaveChangesAsync();
+                News insert = new News()
+                {
+                    Title = news.Title,
+                    Content = news.Content,
+                    StartDateTime = news.StartDateTime,
+                    EndDateTime = news.EndDateTime,
+                    UpdateDateTime = news.UpdateDateTime,
+                    InsertDateTime = news.InsertDateTime,
+                    Click = 0,
+                    Enable = true,
+                    InsertEmploeeId = 1,
+                    UpdateEmploeeId = 1
+                };
+
+                _context.News.Add(insert);
+
+               await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(news);
