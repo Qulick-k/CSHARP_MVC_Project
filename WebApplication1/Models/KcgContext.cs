@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApplication1.Models;
 
 namespace WebApplication1.Models
 {
@@ -26,6 +27,7 @@ namespace WebApplication1.Models
                 entity.Property(e => e.Orders).IsRequired();
             });
         }
+        public DbSet<WebApplication1.Models.News> News { get; set; }
 
     }
 }

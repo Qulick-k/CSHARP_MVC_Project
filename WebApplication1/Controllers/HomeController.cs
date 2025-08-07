@@ -8,7 +8,7 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly KcgContext _kcgContext; //先在全域宣告資料庫物件
+        //private readonly KcgContext _kcgContext; //先在全域宣告資料庫物件
 
         /*public HomeController(KcgContext kcgContext) //這邊是依賴注入使用我們剛設定好的資料庫物件的寫法
         {
