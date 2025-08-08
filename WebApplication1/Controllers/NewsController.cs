@@ -170,13 +170,13 @@ namespace WebApplication1.Controllers
             return View(news);
         }
 
-        // POST: News/Delete/5
+        // POST: News/Delete/5   方法因為參數類型相同，無法多載。但又想要網址一樣，所以使用 ActionName 特性來指定方法名稱
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var news = await _context.News.FindAsync(id);
-            if (news != null)
+            if (news != null) //如果有撈出東西再刪掉
             {
                 _context.News.Remove(news);
             }
