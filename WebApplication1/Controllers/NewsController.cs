@@ -76,8 +76,6 @@ namespace WebApplication1.Controllers
                     Content = news.Content,
                     StartDateTime = news.StartDateTime,
                     EndDateTime = news.EndDateTime,
-                    //UpdateDateTime = news.UpdateDateTime,
-                    //InsertDateTime = news.InsertDateTime,
                     Click = 0,
                     Enable = true,
                     InsertEmploeeId = 1,
@@ -98,15 +96,25 @@ namespace WebApplication1.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound();       //如果id取不到就返回404找不到的頁面
             }
 
-            var news = await _context.News.FindAsync(id);
+            var news = await (from a in _context.News
+                              where a.NewsId == id
+                              select new NewsEditDto
+                              {
+                                  NewsId = a.NewsId,
+                                  Title = a.Title,
+                                  Content = a.Content,
+                                  StartDateTime = a.StartDateTime,
+                                  EndDateTime = a.EndDateTime
+                              }).SingleOrDefaultAsync();
+
             if (news == null)
             {
-                return NotFound();
+                return NotFound();              //如果找不到一樣返回404找不到的頁面
             }
-            return View(news);
+            return View(news);      //找到了就把資料丟去View顯示出來
         }
 
         // POST: News/Edit/5
@@ -114,7 +122,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("NewsId,Title,Content,StartDateTime,EndDateTime,Click,UpdateDateTime,UpdateEmploeeId,InsertDateTime,InsertEmploeeId,Enable")] News news)
+        public async Task<IActionResult> Edit(Guid id, NewsEditDto news)
         {
             if (id != news.NewsId)
             {
@@ -123,23 +131,23 @@ namespace WebApplication1.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                var update = _context.News.Find(news.NewsId);
+
+                if (update != null)
                 {
-                    _context.Update(news);
+                    update.Title = news.Title;
+                    update.Content = news.Content;
+                    update.StartDateTime = news.StartDateTime;
+                    update.EndDateTime = news.EndDateTime;
+                    update.Enable = news.Enable;
+
+                    update.UpdateEmploeeId = 1;
+                    update.UpdateDateTime = DateTime.Now;
+
                     await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NewsExists(news.NewsId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
             return View(news);
         }
